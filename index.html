@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+<title>Doodles</title>
+<meta description="" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:500,900&display=swap" rel="stylesheet">
+<link href="css/generic.css" media="screen" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+    <div class="doodle-container">
+        <div class="ball" id="ball"></div>
+        <ul id="boxes">
+            <li class="hidden"><div class="box"></div></li>
+            <li class="webdesign"><div class="box"></div><h2>Web design</h2></li>
+            <li class="graphic"><div class="box"></div><h2>Graphic design</h2></li>
+            <li class="video"><div class="box"></div><h2>Video</h2></li>
+            <li class="photography"><div class="box"></div><h2>Photography</h2></li>
+        </ul>
+    </div>
+    <div id="scrolldown">
+        Scroll down to begin
+        <span class="mouse"><span></span></span>
+    </div>
+    
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+    crossorigin="anonymous"></script>
+<script src="script.js"></script>
+<script>
+var containerSize = document.querySelector('.doodle-container');
+var getContainerSize = parseInt(getComputedStyle(containerSize).width);
+/*
+jQuery(window).resize(function(){
+    var width = $('.ball').width();
+    console.log(width);
+});
+console.log(width);
+*/
+var moving = false,
+    $el = document.querySelector('.ball');
+    $el.addEventListener('transitionend', function() { moving = true; });
+    var triggerOncefor0 = true;
+    var triggerOncefor1 = true;
+    var triggerOncefor2 = true;
+    var triggerOncefor3 = true;
+    var triggerOncefor4 = true;
+    var triggerOnceforEnd = true;
+function getPosition() {
+    var getElmCSS = getComputedStyle($el);
+    var topPos = getElmCSS.top;
+    var leftPos = getElmCSS.left;
+    var leftPosInPer = parseInt(leftPos)/(getContainerSize/100);
+    //console.log(topPos, leftPos, '....', leftPosInPer);
+    //console.log(leftPosInPer);
+    
+    if (triggerOncefor0 && leftPosInPer >= 0) { 
+        triggerOncefor0 = false; 
+        document.querySelector('li.hidden').classList.add('active');
+    }
+    if (triggerOncefor1 && leftPosInPer >= 11) { 
+        triggerOncefor1 = false; 
+        console.log("1 ---",leftPosInPer);
+        setTimeout(
+            function() {
+                document.querySelector('li.webdesign').classList.add('active');
+            }, 300
+        );
+    }
+    
+    if (triggerOncefor2 && leftPosInPer >= 33) { 
+        triggerOncefor2 = false; 
+        console.log("2 ---",leftPosInPer);
+        setTimeout(
+            function() {
+                document.querySelector('li.graphic').classList.add('active');
+            }, 300
+        );
+    }
+    
+    if (triggerOncefor3 && leftPosInPer >= 55) { 
+        triggerOncefor3 = false;
+        console.log("3 ---",leftPosInPer);
+        setTimeout(
+            function() {
+                document.querySelector('li.video').classList.add('active');
+            }, 250
+        );
+    }
+    
+    if (triggerOncefor4 && leftPosInPer >= 88) { 
+        triggerOncefor4 = false;
+        console.log("4 ---",leftPosInPer);
+        setTimeout(
+            function() {
+                document.querySelector('li.photography').classList.add('active');
+            }, 0
+        );
+    }
+
+    if(triggerOnceforEnd && leftPosInPer >= 98) { triggerOnceforEnd = false; $el.style.display = "none"; }
+
+    if(!moving) {
+        window.requestAnimationFrame(getPosition);
+    }
+}
+window.requestAnimationFrame(getPosition);
+
+</script>
+</body>
+</html>
